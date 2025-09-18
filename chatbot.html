@@ -55,13 +55,31 @@
         return(
             // we aree using div brcause a dive use a whole line
             <div>
-                {sender === "robot" && <img src="images/robot.png" width="40" /> }
+                {sender === "robot" && (
+                    <img src="images/robot.png" width="40" />
+                )}
                 {message}
                 {sender === "user" && <img src="images/user.png" width="40" />}
             </div>
         );
       }
 
+      function App() {
+        return(
+            // we removed div and only used fragmrnts because it genarate a extra div in html
+        <>
+          <ChatInput />
+          <ChatMessage message= "Hello ChatInput" sender="user" />
+          <ChatMessage message= "Hello! How can i help you?" sender="robot" />
+          <ChatMessage message= "Can you get me today's date?" sender="user" />
+          <ChatMessage message= "Today is septenber 27" sender="robot" />
+        </>
+        );
+      }
+
+
+      // we are not using this because it's better to use components instead of variables
+      /*
       const app = (
         // we removed div and only used fragmrnts because it genarate a extra div in html
         <>
@@ -72,9 +90,10 @@
           <ChatMessage message= "Today is septenber 27" sender="robot" />
         </>
       );
+      */
 
       const container = document.querySelector('.js-container');
-      ReactDOM.createRoot(container).render(app);
+      ReactDOM.createRoot(container).render(<App />);
     </script>
   </body>
 </html>
