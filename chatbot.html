@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+    <script type="text/babel">
+
+      const button = <button>Clock</button>;
+      const paragraph = <p>Paragraph for some testing</p>;
+
+    //   component
+      function ChatInput() {
+        return (
+            // fragment <> </>
+            <> 
+            <input placeholder="send me a messege" size="30" />
+            <button>Send</button>
+            </>
+        );
+      }
+
+    //   component
+      function ChatMessage(props){
+        // props means properties , it access the data from app component
+        const message = props.message;
+        const sender = props.sender;
+        // shortcut of above line
+        // const {message} = props;
+        if(sender === "robot"){
+            return(
+            // we aree using div brcause a dive use a whole line
+            <div>
+                <img src="images/robot.png" width="40" />
+                {message}
+            </div>
+        );
+        }
+
+        return(
+            // we aree using div brcause a dive use a whole line
+            <div>
+                {message}
+                <img src="images/user.png" width="40" />
+            </div>
+        );
+      }
+
+      const app = (
+        // we removed div and only used fragmrnts because it genarate a extra div in html
+        <>
+          <ChatInput />
+          <ChatMessage message= "Hello ChatInput" sender="user" />
+          <ChatMessage message= "Hello! How can i help you?" sender="robot" />
+          <ChatMessage message= "Can you get me today's date?" sender="user" />
+          <ChatMessage message= "Today is septenber 27" sender="robot" />
+        </>
+      );
+
+      const container = document.querySelector('.js-container');
+      ReactDOM.createRoot(container).render(app);
+    </script>
+  </body>
+</html>
