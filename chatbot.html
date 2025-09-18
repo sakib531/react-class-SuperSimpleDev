@@ -27,12 +27,19 @@
       }
 
     //   component
-      function ChatMessage(props){
+      function ChatMessage({message , sender}){
         // props means properties , it access the data from app component
-        const message = props.message;
-        const sender = props.sender;
-        // shortcut of above line
-        // const {message} = props;
+        // const message = props.message;
+        // const sender = props.sender;
+        // shortcut of above line ( destructuring shortcut)
+        // const {message , sender} = props;
+
+
+
+
+
+        // we wont use this code because we are repeating some code by doing that
+        /*
         if(sender === "robot"){
             return(
             // we aree using div brcause a dive use a whole line
@@ -42,12 +49,15 @@
             </div>
         );
         }
+        */
+
 
         return(
             // we aree using div brcause a dive use a whole line
             <div>
+                {sender === "robot" && <img src="images/robot.png" width="40" /> }
                 {message}
-                <img src="images/user.png" width="40" />
+                {sender === "user" && <img src="images/user.png" width="40" />}
             </div>
         );
       }
