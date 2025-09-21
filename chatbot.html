@@ -65,14 +65,41 @@
       }
 
       function App() {
+
+        const chatMessages = [{
+            message: 'Hello Chat',
+            sender: 'user',
+            id:'id1'
+        },{
+          message: 'Hello! How can i help you?',
+          sender: 'robot',
+          id:'id2'
+        },{
+          message: 'Can you get me today date?',
+          sender: 'user',
+          id:'id3'
+        },{
+          message: 'Today is septenber 27',
+          sender: 'robot',
+          id:'id4'
+        }
+        ];
+
+        const chatMessageComponents = chatMessages.map((chatMessage) => {
+          return(
+            <ChatMessage 
+            message={chatMessage.message}
+            sender={chatMessage.sender}
+            key={chatMessage.id}
+            />
+          );
+        });
+
         return(
             // we removed div and only used fragmrnts because it genarate a extra div in html
         <>
           <ChatInput />
-          <ChatMessage message= "Hello ChatInput" sender="user" />
-          <ChatMessage message= "Hello! How can i help you?" sender="robot" />
-          <ChatMessage message= "Can you get me today's date?" sender="user" />
-          <ChatMessage message= "Today is septenber 27" sender="robot" />
+          {chatMessageComponents}
         </>
         );
       }
