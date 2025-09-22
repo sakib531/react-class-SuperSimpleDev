@@ -17,10 +17,19 @@
 
     //   component
       function ChatInput() {
+        function saveInputText(){
+
+        }
+
+
         return (
             // fragment <> </>
             <> 
-            <input placeholder="send me a messege" size="30" />
+            <input 
+            placeholder="send me a messege" 
+            size="30" 
+            onChange = {saveInputText}
+            />
             <button>Send</button>
             </>
         );
@@ -33,10 +42,7 @@
         // const sender = props.sender;
         // shortcut of above line ( destructuring shortcut)
         // const {message , sender} = props;
-
-
-
-
+        
 
         // we wont use this code because we are repeating some code by doing that
         /*
@@ -64,9 +70,9 @@
         );
       }
 
-      function App() {
+      function ChatMessages(){
 
-        const chatMessages = [{
+        const [chatMessages , setChatMessages] = React.useState([{
             message: 'Hello Chat',
             sender: 'user',
             id:'id1'
@@ -83,23 +89,108 @@
           sender: 'robot',
           id:'id4'
         }
-        ];
+        ])
+        
+        // const [chatMessages , setChatMessages] = array;
 
-        const chatMessageComponents = chatMessages.map((chatMessage) => {
-          return(
-            <ChatMessage 
-            message={chatMessage.message}
-            sender={chatMessage.sender}
-            key={chatMessage.id}
-            />
-          );
-        });
+        // const chatMessages = array[0];
+        // const setChatMessages = array[1];
+
+
+
+        // const chatMessages = [{
+        //     message: 'Hello Chat',
+        //     sender: 'user',
+        //     id:'id1'
+        // },{
+        //   message: 'Hello! How can i help you?',
+        //   sender: 'robot',
+        //   id:'id2'
+        // },{
+        //   message: 'Can you get me today date?',
+        //   sender: 'user',
+        //   id:'id3'
+        // },{
+        //   message: 'Today is septenber 27',
+        //   sender: 'robot',
+        //   id:'id4'
+        // }
+        // ];
+
+        function sendMessage(){
+          setChatMessages([
+            ...chatMessages,
+            {
+              message: 'test message',
+              sender: 'user',
+              id: crypto.randomUUID()
+            }
+          ]);
+        }
+
+        // function sendMassage(){
+        //   chatMessages.push({
+        //     message: 'test message',
+        //     sender: 'user',
+        //     id: crypto.randomUUID()
+        //   });
+        //   console.log(chatMessages);
+        // }
+
+        return(
+          <>
+            <button onClick={sendMessage}>Send Message</button>
+            {
+              chatMessages.map((chatMessage) => {
+              return(
+                <ChatMessage 
+                message={chatMessage.message}
+                sender={chatMessage.sender}
+                key={chatMessage.id}
+                />
+              );
+              })
+            }
+          </>
+        );
+      }
+
+      function App() {
+
+        // const chatMessages = [{
+        //     message: 'Hello Chat',
+        //     sender: 'user',
+        //     id:'id1'
+        // },{
+        //   message: 'Hello! How can i help you?',
+        //   sender: 'robot',
+        //   id:'id2'
+        // },{
+        //   message: 'Can you get me today date?',
+        //   sender: 'user',
+        //   id:'id3'
+        // },{
+        //   message: 'Today is septenber 27',
+        //   sender: 'robot',
+        //   id:'id4'
+        // }
+        // ];
+
+        // const chatMessageComponents = chatMessages.map((chatMessage) => {
+        //   return(
+        //     <ChatMessage 
+        //     message={chatMessage.message}
+        //     sender={chatMessage.sender}
+        //     key={chatMessage.id}
+        //     />
+        //   );
+        // });
 
         return(
             // we removed div and only used fragmrnts because it genarate a extra div in html
         <>
           <ChatInput />
-          {chatMessageComponents}
+          <ChatMessages />
         </>
         );
       }
