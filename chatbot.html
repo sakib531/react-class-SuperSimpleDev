@@ -5,6 +5,12 @@
 
     <style>
 
+      body{
+        font-family: Arial, Helvetica, sans-serif;
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+
       .send-button{
         background-color: rgb(25 , 135 ,84);
         color: white;
@@ -26,17 +32,50 @@
 
       .chat-input-container{
         display: flex;
+        margin-bottom: 60px;
       }
 
       .app-container{
         max-width: 600px;
         margin-right: auto;
         margin-left: auto;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
       }
 
       .chat-message-user{
         display: flex;
         justify-content: end;
+        align-items: center;
+      }
+
+      .chat-message-robot{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+      }
+
+      .chat-message-text{
+        background-color: rgb(225 , 225 ,225);
+        color: black;
+        padding: 12px 20px;
+        border-radius: 10px;
+        max-width: 70%;
+        margin: 8px;
+        font-size: 16px;
+      }
+
+      .chat-message-profile{
+        width: 50px;
+      }
+
+      .chat-messages-container{
+        flex-grow: 1;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        overflow-y: auto;
+        scrollbar-width: none;
       }
 
     </style>
@@ -132,14 +171,14 @@
             // we aree using div brcause a dive use a whole line
             <div className={sender === 'robot' ? 'chat-message-robot' : 'chat-message-user' }>
                 {sender === "robot" && (
-                    <img src="images/robot.png" width="40" />
+                    <img className="chat-message-profile" src="images/robot.png" />
                 )}
-                
-                <div>
+
+                <div className="chat-message-text">
                   {message}
                 </div>
                 
-                {sender === "user" && <img src="images/user.png" width="40" />}
+                {sender === "user" && <img className="chat-message-profile" src="images/user.png" />}
             </div>
         );
       }
@@ -214,9 +253,18 @@
 
         // Used this inside the return below , <button onClick={sendMessage}>Send Message</button>
 
+        const chatMessagesRef = React.useRef(null);
+
+        React.useEffect(() => {
+          const containerElem = chatMessagesRef.current;
+          if(containerElem){
+            containerElem.scrollTop = containerElem.scrollHeight;
+          }
+        },[chatMessages]);
+
 
         return(
-          <>
+          <div className="chat-messages-container" ref={chatMessagesRef}>
             {
               chatMessages.map((chatMessage) => {
               return(
@@ -228,7 +276,7 @@
               );
               })
             }
-          </>
+          </div>
         );
       }
 
@@ -291,13 +339,16 @@
         return(
             // we removed div and only used fragmrnts because it genarate a extra div in html
         <div className="app-container">
+          
+          <ChatMessages 
+          chatMessages = {chatMessages}
+          />
+
           <ChatInput 
           chatMessages = {chatMessages}
           setChatMessages = {setChatMessages}
           />
-          <ChatMessages 
-          chatMessages = {chatMessages}
-          />
+
         </div>
         );
       }
