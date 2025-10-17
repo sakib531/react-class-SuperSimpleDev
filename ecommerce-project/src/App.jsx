@@ -1,5 +1,6 @@
 import { Routes , Route } from 'react-router'
 import {HomePage} from './pages/HomePage'
+import { CheckoutPage } from './pages/CheckoutPage'
 import './App.css'
 
 
@@ -8,7 +9,7 @@ function App() {
     <Routes>
       {/* index is shortcut for path='/' */}
       <Route index element={<HomePage/>}/> 
-      <Route path='checkout' element={<div>test on cheakout</div>}></Route>
+      <Route path='checkout' element={<CheckoutPage/>}></Route>
     </Routes>
   )
 }
